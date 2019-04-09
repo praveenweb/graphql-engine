@@ -8,10 +8,6 @@
 </template>
 
 <script>
-import "jquery";
-import "samples-bootstrap-theme";
-import "samples-bootstrap-theme/dist/css/auth0-theme.css";
-
 import NavBar from "./components/NavBar";
 
 export default {

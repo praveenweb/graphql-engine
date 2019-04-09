@@ -18,6 +18,7 @@ class AuthService extends EventEmitter {
   idToken = null;
   profile = null;
   tokenExpiry = null;
+  sub = null;
 
   login(customState) {
     webAuth.authorize();
@@ -51,10 +52,17 @@ class AuthService extends EventEmitter {
   }
 
   isAuthenticated() {
+    console.log(Date.now())
+    console.log(this.tokenExpiry)
+    console.log(localStorage.getItem(localStorageKey))
     return (
-      Date.now() < this.tokenExpiry &&
+      // Date.now() < this.tokenExpiry &&
       localStorage.getItem(localStorageKey) === "true"
     );
+  }
+
+  getSub() {
+    return this.sub;
   }
 
   isIdTokenValid() {
@@ -83,6 +91,7 @@ class AuthService extends EventEmitter {
     console.log(authResult);
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
+    this.sub = authResult.sub
 
     // Convert the expiry time from seconds to milliseconds,
     // required by the Date constructor
@@ -94,7 +103,8 @@ class AuthService extends EventEmitter {
     this.emit(loginEvent, {
       loggedIn: true,
       profile: authResult.idTokenPayload,
-      state: authResult.appState || {}
+      state: authResult.appState || {},
+      sub: authResult.sub
     });
   }
 

@@ -11,7 +11,7 @@ Vue.use(VueApollo)
 const AUTH_TOKEN = 'apollo-token'
 
 // Http endpoint
-const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || 'http://localhost:8080/v1alpha1/graphql'
+const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || 'https://react-apollo-todo.demo.hasura.app/v1alpha1/graphql'
 // Files URL root
 export const filesRoot = process.env.VUE_APP_FILES_ROOT || httpEndpoint.substr(0, httpEndpoint.indexOf('/graphql'))
 
@@ -23,7 +23,7 @@ const defaultOptions = {
   httpEndpoint,
   // You can use `wss` for secure connection (recommended in production)
   // Use `null` to disable subscriptions
-  wsEndpoint: process.env.VUE_APP_GRAPHQL_WS || 'ws://localhost:8080/v1alpha1/graphql',
+  wsEndpoint: process.env.VUE_APP_GRAPHQL_WS || 'wss://react-apollo-todo.demo.hasura.app/v1alpha1/graphql',
   // LocalStorage token
   tokenName: AUTH_TOKEN,
   // Enable Automatic Query persisting with Apollo Engine
@@ -55,8 +55,10 @@ const defaultOptions = {
     // return the headers to the context so httpLink can read them
     const token = localStorage.getItem('apollo-token')
     if (token) {
+      console.log('INSIDE TOKEN')
       return 'Bearer ' + token
     } else {
+      console.log('NOT INSIDE TOKEN')
       return ''
     }
   },

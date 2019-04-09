@@ -16,14 +16,6 @@
           >Vue.js</a> and making a authenticated GraphQL query to <a href="https://github.com/hasura/graphql-engine">Hasura GraphQL Engine</a>
         </p>
       </div>
-      <div v-if="isAuthenticated">
-        <h1 class="mb-4">
-          Articles written by me
-        </h1>
-        <div v-for="a in article" :key="a.id">
-          {{a.id}}. {{ a.title }}
-        </div> 
-      </div>
     </div>
 
   </div>
@@ -32,7 +24,6 @@
 
 
 <script>
-import gql from 'graphql-tag'
 export default {
   name: "home",
   methods: {
@@ -52,15 +43,6 @@ export default {
       isAuthenticated: false,
       isLoading: true
     };
-  },
-  apollo: {
-    // Simple query that will update the 'article' vue property
-    article: gql`query {
-      article {
-        id
-        title
-      }
-    }`,
   },
 };
 </script>

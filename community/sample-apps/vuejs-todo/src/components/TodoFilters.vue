@@ -1,18 +1,18 @@
 <template>
 <div class="footerList">
-  <span>20 items left </span>
+  <span>{{ remainingTodos }} items left </span>
   <ul>
-    <li>
+    <li v-on:click="filterResults('all')">
       <a class="selected">All</a>
     </li>
-    <li>
+    <li v-on:click="filterResults('active')">
       <a
         class="removePaddLeft"
       >
         Active
       </a>
     </li>
-    <li>
+    <li v-on:click="filterResults('completed')">
       <a
         class="removePaddLeft"
       >
@@ -21,11 +21,13 @@
     </li>
   </ul>
     <button class="clearComp">
-      completed
+      Clear Completed
     </button>
 </div>
 </template>
 
 <script>
-
+  export default {
+    props: ['todoList', 'remainingTodos', 'filterResults'],
+  }
 </script>
