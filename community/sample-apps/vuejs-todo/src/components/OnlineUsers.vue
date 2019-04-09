@@ -40,7 +40,6 @@
           // Result hook
           result (data) {
             // Let's update the local data
-            console.log(data) // eslint-disable-line
             this.online_list = data.data.online_users
             this.loading = false
           },

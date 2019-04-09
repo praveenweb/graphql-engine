@@ -52,9 +52,6 @@ class AuthService extends EventEmitter {
   }
 
   isAuthenticated() {
-    console.log(Date.now())
-    console.log(this.tokenExpiry)
-    console.log(localStorage.getItem(localStorageKey))
     return (
       // Date.now() < this.tokenExpiry &&
       localStorage.getItem(localStorageKey) === "true"
@@ -88,7 +85,6 @@ class AuthService extends EventEmitter {
   }
 
   localLogin(authResult) {
-    console.log(authResult);
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
     this.sub = authResult.sub
@@ -110,15 +106,12 @@ class AuthService extends EventEmitter {
 
   renewTokens() {
     return new Promise((resolve, reject) => {
-      console.log(localStorage.getItem(localStorageKey));
       if (localStorage.getItem(localStorageKey) !== "true") {
         return reject("Not logged in");
       }
 
       webAuth.checkSession({}, (err, authResult) => {
         if (err) {
-          console.log('inside');
-          console.log(err);
           localStorage.setItem(localStorageKey, "false");
           localStorage.removeItem("apollo-token");
           reject(err);

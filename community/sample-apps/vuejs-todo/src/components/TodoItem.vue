@@ -78,18 +78,6 @@
               }
             }
           },
-          // Optimistic UI
-          // Will be treated as a 'fake' result as soon as the request is made
-          // so that the UI can react quickly and the user be happy
-          optimisticResponse: {
-            __typename: 'update_todos',
-            update_todos: {
-              __typename: 'todo',
-              id: todo.id,
-              is_completed: !todo.is_completed,
-              affected_rows: 1
-            },
-          },
         });
       },
       handleTodoDelete: function(todo) {

@@ -1,13 +1,23 @@
 <template>
   <div>
     <div class="todoListwrapper">
-      <TodoItem v-bind:todos="filteredTodos" v-bind:type="type" />
+      <TodoItem 
+        v-bind:todos="filteredTodos" 
+        v-bind:type="type" 
+      />
     </div>
-    <TodoFilters v-bind:todoList="filteredTodos" v-bind:remainingTodos="remainingTodos" v-bind:filterResults="filterResults" />
+    <TodoFilters 
+      v-bind:remainingTodos="remainingTodos" 
+      v-bind:filterResults="filterResults" 
+      v-bind:filterType="filterType"
+      v-bind:type="type"
+      v-bind:clearCompleted="clearCompleted"
+    />
   </div>
 </template>
 
 <script>
+import gql from "graphql-tag";
 import TodoItem from "../components/TodoItem";
 import TodoFilters from "../components/TodoFilters";
 import { QUERY_PRIVATE_TODO } from "../TodoQueries";
@@ -19,6 +29,7 @@ export default {
   data() {
     return {
       type: "private",
+      filterType: "all"
     }
   },
   computed: {
@@ -27,20 +38,74 @@ export default {
       return activeTodos.length
     },
     filteredTodos: function() {
-      return this.todos
+      if (this.filterType === 'all') {
+        return this.todos
+      } else if(this.filterType === 'active') {
+        return this.todos.filter((todo) => todo.is_completed !== true);
+      } else if (this.filterType === 'completed') {
+        return this.todos.filter((todo) => todo.is_completed === true);
+      }
     }
   },
   methods: {
     filterResults: function(type) {
       if(type === 'active') {
-        this.todos = this.todos.filter((todo) => todo.is_completed !== true);
+        this.filterType = "active";
       } else if(type === 'completed') {
-        this.todos = this.todos.filter((todo) => todo.is_completed === true);
+        this.filterType = "completed";
       } else {
-        this.todos = this.todos;
+        this.filterType = "all";
+      }
+    },
+    clearCompleted: function() {
+      const client = this.$apolloProvider.clients.defaultClient;
+      const userId = this.$auth.profile.sub;
+      const isOk = window.confirm("Are you sure?");
+      if (isOk) {
+        const isPublic = false;
+        client
+          .mutate({
+            mutation: gql`
+              mutation ($isPublic: Boolean!) {
+                delete_todos (
+                  where: { is_completed: {_eq: true}, is_public: {_eq: $isPublic}}
+                ) {
+                  affected_rows
+                }
+              }
+            `,
+            variables: {
+              isPublic: isPublic
+            },
+            update: (store, { data: { delete_todos } }) => {
+              const query = QUERY_PRIVATE_TODO;
+              if (delete_todos.affected_rows) {
+                const data = store.readQuery({
+                  query: query,
+                  variables: { userId: userId }
+                });
+                data.todos = data.todos.filter((todo) => todo.is_completed !== true);
+                store.writeQuery({
+                  query: query,
+                  variables: {
+                    userId: userId
+                  },
+                  data
+                });
+              }
+            },
+
+          })
+          .then(() => {
+            // handle response
+          })
+          .catch(error => {
+            console.error(error);
+          });
       }
 
     }
+
   },
   apollo: {
     todos: {

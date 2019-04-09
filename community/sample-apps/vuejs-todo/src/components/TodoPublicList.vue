@@ -5,7 +5,7 @@
         You have {{ newTodosLength }} new todo
       </div>
       <TodoItem 
-        v-bind:todos="todos" 
+        v-bind:todos="filteredTodos" 
         v-bind:type="type" 
         v-bind:deletePublicTodoClicked="deletePublicTodoClicked" 
         v-bind:completePublicTodoClicked="completePublicTodoClicked" 
@@ -14,7 +14,11 @@
         Load Older Todos
       </div>
     </div>
-    <TodoFilters v-bind:todoList="todos" v-bind:remainingTodos="remainingTodos"  />
+    <TodoFilters 
+      v-bind:remainingTodos="remainingTodos"  
+      v-bind:filterResults="filterResults" 
+      v-bind:filterType="filterType"
+    />
 
   </div>
 </template>
@@ -29,8 +33,7 @@ export default {
   },
   data: function() {
     return {
-      filter: "all",
-      dataLength: 0,
+      filterType: "all",
       showNew: false,
       showOlder: true,
       newTodosLength: 0,
@@ -43,6 +46,15 @@ export default {
     remainingTodos: function() {
       const activeTodos = this.todos !== undefined ? this.todos.filter((todo) => todo.is_completed !== true) : []
       return activeTodos.length
+    },
+    filteredTodos: function() {
+      if (this.filterType === 'all') {
+        return this.todos
+      } else if(this.filterType === 'active') {
+        return this.todos.filter((todo) => todo.is_completed !== true);
+      } else if (this.filterType === 'completed') {
+        return this.todos.filter((todo) => todo.is_completed === true);
+      }
     }
   },
   mounted() {
@@ -54,7 +66,6 @@ export default {
         variables: { todoLimit: this.limit }
       })
       .then(data => {
-        console.log(data.data.todos); // eslint-disable-line
         this.todos = data.data.todos;
         const latestTodoId = data.data.todos.length
           ? data.data.todos[0].id
@@ -67,7 +78,6 @@ export default {
           })
           .subscribe({
             next(data) {
-              console.log(data.data.todos); // eslint-disable-line
               if (data.data.todos.length) {
                 that.showNew = true;
                 that.newTodosLength = that.newTodosLength + data.data.todos.length;
@@ -138,6 +148,15 @@ export default {
         return t;
       });
       this.todos = finalTodos;
+    },
+    filterResults: function(type) {
+      if(type === 'active') {
+        this.filterType = "active";
+      } else if(type === 'completed') {
+        this.filterType = "completed";
+      } else {
+        this.filterType = "all";
+      }
     }
   }
 }

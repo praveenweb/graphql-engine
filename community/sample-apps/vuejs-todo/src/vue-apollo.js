@@ -55,10 +55,8 @@ const defaultOptions = {
     // return the headers to the context so httpLink can read them
     const token = localStorage.getItem('apollo-token')
     if (token) {
-      console.log('INSIDE TOKEN')
       return 'Bearer ' + token
     } else {
-      console.log('NOT INSIDE TOKEN')
       return ''
     }
   },

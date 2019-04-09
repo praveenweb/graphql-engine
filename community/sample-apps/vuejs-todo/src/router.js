@@ -30,7 +30,6 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(auth.isAuthenticated()) // eslint-disable-line
   if (to.path === "/" || to.path === "/callback" || auth.isAuthenticated()) {
     return next();
   }
