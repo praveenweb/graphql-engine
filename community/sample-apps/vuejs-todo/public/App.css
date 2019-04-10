@@ -538,7 +538,7 @@ body {
 
 .overlay .overlay-content {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   font-size: 18px;
   text-align: center;
