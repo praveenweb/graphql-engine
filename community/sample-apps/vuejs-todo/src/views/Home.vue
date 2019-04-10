@@ -1,20 +1,14 @@
 <template>
-  <div>
-    <div class="spinner" v-if="isLoading">
-      <img src="../assets/loading.svg" alt="Loading">
-    </div>
-    <div class="text-center hero" v-if="!isLoading">
-      <img class="mb-3 app-logo" src="/logo.png" alt="Vue.js logo">
-      <div v-if="!isAuthenticated">
-        <h1 class="mb-4">
-          Login to view articles
-        </h1>
-        <p class="lead">
-          This is a sample application that demonstrates an authentication flow for an SPA, using
-          <a
-            href="https://vuejs.org"
-          >Vue.js</a> and making a authenticated GraphQL query to <a href="https://github.com/hasura/graphql-engine">Hasura GraphQL Engine</a>
-        </p>
+  <div class="overlay">
+    <div class="overlay-content">
+      <div class="overlay-heading">
+        Welcome to the GraphQL tutorial app
+      </div>
+      <div class="overlay-message">
+        Please login to continue
+      </div>
+      <div class="overlay-action">
+        <button class="login-btn">Log in</button>
       </div>
     </div>
 

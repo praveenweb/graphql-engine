@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-light removeMarBottom">
       <div class="navbar-brand navBrand">Vuejs Todo App</div>
       <div class="collapse navbar-collapse navBarAlign" id="navbarNav">
-        <button class="btn btn-primary logoutBtn">Log in</button>
+        <button class="login-btn">Log in</button>
       </div>
     </nav>
   </div>

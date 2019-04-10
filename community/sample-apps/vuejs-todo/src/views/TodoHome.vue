@@ -10,7 +10,7 @@
         </div>
         <div class="col-xs-12 col-md-6 col-sm-12 grayBgColor todoMainWrapper commonBorRight">
           <div class="wd95 addPaddTopBottom">
-            <div class="sectionHeader">Public todos</div>
+            <div class="sectionHeader">Public feed (realtime)</div>
             <TodoPublicWrapper />
           </div>
         </div>
