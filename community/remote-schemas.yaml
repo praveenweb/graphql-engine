@@ -1,0 +1,17 @@
+- name: Contentful
+  repo: https://github.com/praveenweb/contentful-remote-schema
+  description: Use Contentful for managing rich content
+  logo: https://d21buns5ku92am.cloudfront.net/41748/images/265844-logo-black_700x149-2e0d38-original-1511779631.png
+  tags:
+    - CMS
+    - Rich Content
+- name: Auth0
+  repo: https://github.com/wawhal/auth0-graphql-server
+  description: Use Auth0 Admin APIs to fetch user meta information
+  tags:
+    - Identity
+- name: Aftership
+  repo: https://github.com/praveenweb/aftership-remote-schema
+  description: Use Aftership APIs to track fedex shipping
+  tags:
+    - Tracking
