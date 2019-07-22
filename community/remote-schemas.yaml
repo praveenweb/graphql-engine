@@ -7,11 +7,21 @@
     - Rich Content
 - name: Auth0
   repo: https://github.com/wawhal/auth0-graphql-server
+  logo: https://d21buns5ku92am.cloudfront.net/41748/images/265844-logo-black_700x149-2e0d38-original-1511779631.png
   description: Use Auth0 Admin APIs to fetch user meta information
   tags:
     - Identity
 - name: Aftership
   repo: https://github.com/praveenweb/aftership-remote-schema
+  logo: https://d21buns5ku92am.cloudfront.net/41748/images/265844-logo-black_700x149-2e0d38-original-1511779631.png
   description: Use Aftership APIs to track fedex shipping
   tags:
     - Tracking
+- name: Google Places API
+  repo: https://github.com/praveenweb/google-places-remote-schema
+  logo: https://d21buns5ku92am.cloudfront.net/41748/images/265844-logo-black_700x149-2e0d38-original-1511779631.png
+  description: Use Google Places API to fetch near by locations and POI with geography data coming from PostGIS
+  tags:
+    - Location
+    - PostGIS
+    - Geography
