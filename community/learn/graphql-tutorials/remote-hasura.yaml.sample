@@ -74,6 +74,11 @@ spec:
       name: flutter-graphql
       path: ./community/learn/graphql-tutorials/tutorials/flutter-graphql/tutorial-site
     name: flutter-graphql
+  - containers:
+    - dockerfile: ./community/learn/graphql-tutorials/tutorials/angular-apollo/tutorial-site/Dockerfile
+      name: angular-apollo
+      path: ./community/learn/graphql-tutorials/tutorials/angular-apollo/tutorial-site
+    name: angular-apollo
   manifests:
     helm: {}
     path: ./community/learn/graphql-tutorials/manifests
