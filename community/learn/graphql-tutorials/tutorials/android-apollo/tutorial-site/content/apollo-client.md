@@ -57,7 +57,7 @@ dependencies {
 }
 ```
 
-- Now create a `graphql`inside the `main`directory and create new directory structure like `graphql/com/hasura/todo`so that the **Apollo plugin can generate java classes with valid package**.
+- Now create a `graphql` inside the `main`directory and create new directory structure like `graphql/com/hasura/todo`so that the **Apollo plugin can generate java classes with valid package**.
 
 ### Create .graphql files with your queries or mutations
 
